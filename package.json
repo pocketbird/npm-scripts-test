@@ -1,0 +1,25 @@
+{
+  "name": "npm-scripts-test",
+  "version": "1.0.0",
+  "description": "HCA custom prototyping environment",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf .tmp && mkdir .tmp && mkdir .tmp/scripts",
+    "js": "uglifyjs app/scripts/*.js --output .tmp/scripts/app.js",
+    "scss": "node-sass app/styles/screen.scss --output .tmp/styles",
+    "watch:scss": "node-sass --watch app/styles/screen.scss --output .tmp/styles",
+    "serve": "browser-sync start --server --port 9000 --no-notify --files \"app/index.html, .tmp/styles/screen.css, .tmp/scripts/app.js\"",
+    "prestart": "npm-run-all clean scss js",
+    "start": "npm-run-all --parallel watch:* serve",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch:js": "watch 'npm run js' app/scripts"
+  },
+  "author": "Colin Carter",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.17.5",
+    "node-sass": "^3.11.1",
+    "npm-run-all": "^3.1.1",
+    "uglify-js": "^2.7.4"
+  }
+}
